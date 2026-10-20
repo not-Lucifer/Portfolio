@@ -56,7 +56,7 @@ const badgeClass = (b) => ({ "AI-assisted": "badge-ai", "Team project": "badge-t
 
 // ── persistent chrome ─────────────────────────────────────
 const L = C.links;
-const cvLink = L.cv ? safeUrl(L.cv) : null;
+const resumeLink = L.resume ? safeUrl(L.resume) : null;
 
 const topbar = () => `
 <header class="topbar">
@@ -412,9 +412,9 @@ function toolboxSlide() {
 function notebookSlide() {
   const N = C.notebook;
   const next = String(C.projects.length + 1).padStart(2, "0");
-  const cvBtn = cvLink
-    ? ext(cvLink, `VIEW CV <span aria-hidden="true">↗</span>`, "cv-btn")
-    : `<span class="cv-btn cv-missing">CV COMING SOON</span>`;
+  const resumeBtn = resumeLink
+    ? ext(resumeLink, `VIEW RESUME <span aria-hidden="true">↗</span>`, "resume-btn")
+    : `<span class="resume-btn resume-missing">RESUME COMING SOON</span>`;
   return `
 <section class="slide notebook-slide" id="whats-next" aria-labelledby="nb-notes-title" data-slide="whats-next">
   <div class="notebook" data-notebook>
@@ -440,7 +440,7 @@ function notebookSlide() {
         <ul class="nb-notes">${N.notes.map((n) => `<li class="hand">${rich(n)}</li>`).join("")}</ul>
         <p class="nb-ticket">${art.tape("tape-beige")}<span>${esc(N.ticket[0])}</span><small>${esc(N.ticket[1])}</small></p>
         <p class="wax-seal" aria-hidden="true"><span>P1</span></p>
-        <p class="nb-cv"><span class="hand">the boring details<br>are in my CV</span>${cvBtn}</p>
+        <p class="nb-resume"><span class="hand">the boring details<br>are in my resume</span>${resumeBtn}</p>
       </div>
     </div>`);
 }
@@ -458,7 +458,7 @@ function footerSlide() {
     <li><a class="u-link" href="mailto:${esc(L.email)}">EMAIL <span aria-hidden="true">↗</span></a></li>
     <li>${ext(L.github, `GITHUB <span aria-hidden="true">↗</span>`, "u-link")}</li>
     <li>${ext(L.linkedin, `LINKEDIN <span aria-hidden="true">↗</span>`, "u-link")}</li>
-    <li>${cvLink ? ext(cvLink, `CV <span aria-hidden="true">↗</span>`, "u-link") : `<span class="u-link is-off">CV (SOON)</span>`}</li>
+    <li>${resumeLink ? ext(resumeLink, `RESUME <span aria-hidden="true">↗</span>`, "u-link") : `<span class="u-link is-off">RESUME (SOON)</span>`}</li>
   </ul>
   <p class="ft-email">${esc(L.email)}</p>
   <p class="stamp-rect stamp-footer">OPEN TO<br>INTERNSHIPS <span aria-hidden="true">☺</span></p>

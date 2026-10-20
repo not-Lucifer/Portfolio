@@ -60,7 +60,7 @@ export default {
     linkedin: "https://www.linkedin.com/in/thc-aman-singh/",
     leetcode: "https://leetcode.com/u/not_lucy_13/",
     codechef: "https://www.codechef.com/users/lucifer_609",
-    cv: null, // PLACEHOLDER: e.g. "/aman-singh-cv.pdf" (put the PDF in site/) or a Drive link
+    resume: "/aman-singh-resume.pdf", // the PDF lives in site/
   },
 
   // ── Projects, in slide order ───────────────────────────────

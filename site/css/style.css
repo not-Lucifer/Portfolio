@@ -547,11 +547,11 @@ kbd { display: inline-grid; place-items: center; min-width: 2.3em; height: 2.3em
 .nb-ticket .tape { width: 30%; left: auto; right: -10%; top: -.6em; rotate: 24deg; }
 .wax-seal { position: absolute; left: -5%; bottom: 26%; width: 13%; aspect-ratio: 1; display: grid; place-items: center; border-radius: 47% 53% 50% 50%; background: radial-gradient(circle at 40% 35%, #e94040, #a31616 70%); box-shadow: 0 3px 6px rgba(80, 0, 0, .4), inset 0 0 0 calc(var(--nb-w) * .006) rgba(120, 0, 0, .35); }
 .wax-seal span { font: 400 calc(var(--nb-w) * .02)/1 var(--f-display); color: rgba(255, 220, 210, .85); rotate: -10deg; }
-.nb-cv { position: absolute; left: 12%; right: 6%; bottom: 5%; display: flex; align-items: center; justify-content: space-between; gap: 1em; }
-.nb-cv .hand { font-size: calc(var(--nb-w) * .017); }
-.cv-btn { display: inline-block; padding: .6em 1.3em; background: var(--blue); color: var(--paper-hi); font: 400 calc(var(--nb-w) * .02)/1 var(--f-marker); text-decoration: none; rotate: -5deg; box-shadow: 3px 3px 0 var(--ink); transition: rotate .25s var(--ease-out), translate .25s; }
-.cv-btn:hover { rotate: -2deg; translate: 0 -2px; }
-.cv-missing { background: var(--paper-lo); color: var(--ink-2); box-shadow: none; }
+.nb-resume { position: absolute; left: 12%; right: 6%; bottom: 5%; display: flex; align-items: center; justify-content: space-between; gap: 1em; }
+.nb-resume .hand { font-size: calc(var(--nb-w) * .017); }
+.resume-btn { display: inline-block; padding: .6em 1.3em; background: var(--blue); color: var(--paper-hi); font: 400 calc(var(--nb-w) * .02)/1 var(--f-marker); text-decoration: none; rotate: -5deg; box-shadow: 3px 3px 0 var(--ink); transition: rotate .25s var(--ease-out), translate .25s; }
+.resume-btn:hover { rotate: -2deg; translate: 0 -2px; }
+.resume-missing { background: var(--paper-lo); color: var(--ink-2); box-shadow: none; }
 
 .nb-small { font-size: calc(var(--nb-w) * .017); border-bottom: 1px solid var(--ink); width: max-content; padding-bottom: .1em; }
 .nb-next { position: relative; margin-top: 10%; font-size: calc(var(--nb-w) * .072); line-height: .92; rotate: -4deg; width: max-content; }
@@ -657,8 +657,8 @@ kbd { display: inline-grid; place-items: center; min-width: 2.3em; height: 2.3em
   .nb-page { width: 100%; min-height: 128vw; border-radius: 12px; font-size: 13px; }
   .nb-notes li { font-size: 21px; }
   .nb-notes-title, .nb-next { font-size: 48px; }
-  .nb-small, .nb-caption, .nb-empty, .nb-cv .hand { font-size: 18px; }
-  .cv-btn { font-size: 18px; }
+  .nb-small, .nb-caption, .nb-empty, .nb-resume .hand { font-size: 18px; }
+  .resume-btn { font-size: 18px; }
   .nb-polaroid figcaption { font-size: 14px; }
   .slot-n { font-size: 52px; } .slot-slash { font-size: 30px; }
   .wax-seal { left: auto; right: 6%; bottom: 30%; width: 16%; }

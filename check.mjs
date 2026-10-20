@@ -94,7 +94,7 @@ check(leaky.length === 0, "no API keys, tokens, private keys or .env files" + (l
 
 // 7. Things to know about, not failures.
 if (html.includes("mailto:")) warn.push("Your email is public in mailto: links (it was on your old site too). Expect some spam; use a separate inbox if that matters.");
-if (!/cv/i.test(html.match(/href="[^"]*\.pdf"/)?.[0] || "")) warn.push("No CV link yet (links.cv in content.js).");
+if (!/href="[^"]*resume[^"]*\.pdf"/i.test(html)) warn.push("No resume link yet (links.resume in content.js).");
 
 console.log(ok.map((m) => "  ✓ " + m).join("\n"));
 if (warn.length) console.log("\n" + warn.map((m) => "  ! " + m).join("\n"));

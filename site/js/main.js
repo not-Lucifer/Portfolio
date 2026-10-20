@@ -111,6 +111,16 @@
         playBtn.hidden = true;
         tools.hidden = false;
         tv.classList.add("is-playing");
+
+        // Hosts like Unity Play show a plain black screen while the game downloads. Say so.
+        if (!embed.startsWith("/")) {
+          const note = document.createElement("span");
+          note.className = "tv-note";
+          note.setAttribute("role", "status");
+          note.textContent = "Loading the game. A black screen for up to a minute is normal.";
+          tools.append(note);
+          setTimeout(() => note.remove(), 45000);
+        }
         frame.focus();
       };
 
@@ -119,6 +129,7 @@
         if (document.fullscreenElement) document.exitFullscreen();
         playBtn.hidden = false;
         tools.hidden = true;
+        tools.querySelector(".tv-note")?.remove();
         tv.classList.remove("is-playing");
         playBtn.focus();
       };

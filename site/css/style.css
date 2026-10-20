@@ -383,6 +383,7 @@ kbd { font-family: var(--f-mono); }
 .tv-screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
 .tv-tools { display: flex; flex-wrap: wrap; gap: .6em 1.6em; padding-top: 1.1em; font-size: var(--fs-small); letter-spacing: .14em; color: var(--paper-hi); }
 .tv-tools[hidden] { display: none; }
+.tv-note { flex-basis: 100%; color: rgba(246, 241, 230, .7); letter-spacing: .04em; }
 .tv-tools button, .tv-tools a { background: none; border: 0; padding: .2em 0; color: inherit; text-decoration: none; letter-spacing: inherit; font-size: inherit; border-bottom: 1.5px solid rgba(246, 241, 230, .5); }
 .tv-tools button:hover, .tv-tools a:hover { border-color: var(--acc); }
 .tv.is-playing { rotate: 0deg; width: 100cqw; z-index: 8; }

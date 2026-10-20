@@ -475,7 +475,7 @@ const csp = [
   "img-src 'self' data:",
   "font-src 'self'",
   "connect-src 'self'",
-  "frame-src 'self' https://itch.io https://*.itch.io https://*.itch.zone https://www.youtube-nocookie.com",
+  "frame-src 'self' https://itch.io https://*.itch.io https://*.itch.zone https://play-prod.struckd.com https://www.youtube-nocookie.com",
   "manifest-src 'self'",
   "base-uri 'none'",
   "form-action 'none'",

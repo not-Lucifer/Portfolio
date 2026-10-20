@@ -154,8 +154,9 @@ export default {
       statement: ["GHOSTS PATROL.", "YOU TIPTOE."],
       repo: "https://github.com/not-Lucifer/Haunted-House",
       play: {
-        embed: null, // PLACEHOLDER: itch.io embed URL, e.g. "https://itch.io/embed-upload/1234567?color=151515"
-        page: null, // PLACEHOLDER: itch.io game page, e.g. "https://not-lucifer.itch.io/haunted-house"
+        // Unity Play's game frame (the player without the page around it). Overrides the self-hosted build.
+        embed: "https://play-prod.struckd.com/api/v1/games/game/7e52970d-9ecd-4dbd-9a49-3eefb72661fd/build/latest/frame",
+        page: "https://play.unity.com/en/games/7e52970d-9ecd-4dbd-9a49-3eefb72661fd/haunted-house",
         aspect: "16 / 9",
       },
       screenshot: "img/haunted-house-level2.webp",

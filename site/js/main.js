@@ -303,7 +303,23 @@
     root.classList.add("ready");
   }
 
+  // In-page links (#gamestash, ↑ TOP…) glide instead of jumping, and focus moves with them.
+  function anchors() {
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      const target = document.getElementById(a.getAttribute("href").slice(1));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: motion ? "smooth" : "auto" });
+      history.pushState(null, "", a.getAttribute("href"));
+      if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    });
+  }
+
   clock();
+  anchors();
   connect();
   tabs();
   games();

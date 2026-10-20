@@ -86,8 +86,8 @@ export const arrowCurve = (cls = "") =>
 export const arrowDown = (cls = "") =>
   `<svg class="scribble ${cls}" viewBox="0 0 70 90" aria-hidden="true"><path class="draw" d="M10 6 C 48 14, 60 40, 44 80 M30 68 L44 82 L54 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-export const ellipse = (cls = "") =>
-  `<svg class="scribble ${cls}" viewBox="0 0 140 56" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M104 7 C 70 1, 14 8, 7 28 C 1 46, 60 54, 102 48 C 140 42, 142 14, 96 6 L 88 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
+export const ellipse = (cls = "", drawOnReveal = true) =>
+  `<svg class="scribble ${cls}" viewBox="0 0 140 56" preserveAspectRatio="none" aria-hidden="true"><path${drawOnReveal ? ' class="draw"' : ' pathLength="1"'} d="M104 7 C 70 1, 14 8, 7 28 C 1 46, 60 54, 102 48 C 140 42, 142 14, 96 6 L 88 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`;
 
 export const star4 = (cls = "", fill = RED) =>
   `<svg class="${cls}" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0 C 22 14, 26 18, 40 20 C 26 22, 22 26, 20 40 C 18 26, 14 22, 0 20 C 14 18, 18 14, 20 0Z" fill="${fill}"/></svg>`;
@@ -119,59 +119,6 @@ export function circleStamp(text, id, cls = "", color = INK, tilt = 0) {
   </g>
 </svg>`;
 }
-
-// ── The mascot: an original horned imp in a hoodie (a nod to the "Lucifer" alias) ──
-export const mascot = () => `
-<svg class="mascot" viewBox="0 0 360 450" role="img" aria-label="Original mascot: a small horned imp in a hoodie, grinning and holding a game controller">
-  <!-- torn white paper behind the cut-out -->
-  <g filter="url(#rough)" fill="#fff" stroke="#fff" stroke-width="26" stroke-linejoin="round">
-    <path d="M98 132 C 72 104, 58 66, 72 22 C 88 62, 116 88, 146 104Z"/><path d="M262 132 C 288 104, 302 66, 288 22 C 272 62, 244 88, 214 104Z"/>
-    <ellipse cx="180" cy="205" rx="126" ry="122"/>
-    <path d="M56 450 C 60 380, 80 330, 120 312 L240 312 C 280 330, 300 380, 304 450Z"/>
-    <path d="M290 400 C 330 390, 342 350, 326 322 L350 300 L344 336Z"/>
-  </g>
-  <!-- tail -->
-  <path d="M286 402 C 326 392, 338 358, 324 330" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>
-  <path d="M324 330 L312 300 L344 318 Z" fill="${RED}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>
-  <!-- horns -->
-  <path d="M98 132 C 72 104, 58 66, 72 22 C 88 62, 116 88, 146 104Z" fill="#262626" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M262 132 C 288 104, 302 66, 288 22 C 272 62, 244 88, 214 104Z" fill="#262626" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>
-  <path d="M84 96 C 76 80, 72 62, 73 44 M276 96 C 284 80, 288 62, 287 44" fill="none" stroke="#6a6a6a" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- body / hoodie -->
-  <path d="M58 450 C 62 384, 82 334, 122 314 L238 314 C 278 334, 298 384, 302 450Z" fill="#2c2c2c" stroke="${INK}" stroke-width="5"/>
-  <path d="M120 430 C 150 412, 210 412, 240 430" fill="none" stroke="#555" stroke-width="4" stroke-linecap="round"/>
-  <!-- hood -->
-  <ellipse cx="180" cy="205" rx="122" ry="118" fill="#2c2c2c" stroke="${INK}" stroke-width="5"/>
-  <path d="M86 178 C 96 120, 140 98, 180 98 C 220 98, 264 120, 274 178" fill="none" stroke="#4a4a4a" stroke-width="7" stroke-linecap="round"/>
-  <!-- face -->
-  <ellipse cx="180" cy="218" rx="94" ry="86" fill="${PAPER}" stroke="${INK}" stroke-width="5"/>
-  <path d="M98 196 C 104 160, 136 140, 180 138 C 224 140, 256 160, 262 196" fill="none" stroke="${INK}" stroke-width="4" stroke-dasharray="1 9" stroke-linecap="round"/>
-  <!-- brows -->
-  <path d="M124 180 L162 192" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>
-  <path d="M236 180 L198 192" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>
-  <!-- eyes -->
-  <ellipse cx="148" cy="214" rx="14" ry="19" fill="${INK}"/>
-  <ellipse cx="212" cy="214" rx="14" ry="19" fill="${INK}"/>
-  <circle cx="143" cy="206" r="5" fill="#fff"/><circle cx="207" cy="206" r="5" fill="#fff"/>
-  <!-- cheeks -->
-  <ellipse cx="118" cy="246" rx="15" ry="9" fill="${RED}" opacity=".35"/>
-  <ellipse cx="242" cy="246" rx="15" ry="9" fill="${RED}" opacity=".35"/>
-  <!-- grin + fang -->
-  <path d="M146 254 C 162 276, 204 278, 220 250" fill="none" stroke="${INK}" stroke-width="6" stroke-linecap="round"/>
-  <path d="M196 268 L201 284 L208 265Z" fill="#fff" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>
-  <!-- hood strings -->
-  <path d="M150 314 L144 360 M210 314 L216 360" stroke="${PAPER}" stroke-width="5" stroke-linecap="round"/>
-  <rect x="139" y="358" width="10" height="16" rx="3" fill="${PAPER}" stroke="${INK}" stroke-width="2"/>
-  <rect x="211" y="358" width="10" height="16" rx="3" fill="${PAPER}" stroke="${INK}" stroke-width="2"/>
-  <!-- controller -->
-  <path d="M96 382 C 96 360, 120 352, 150 360 L210 360 C 240 352, 264 360, 264 382 C 266 416, 248 436, 226 424 L206 408 L154 408 L134 424 C 112 436, 94 416, 96 382Z" fill="${INK}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M128 378 h8 v-8 h8 v8 h8 v8 h-8 v8 h-8 v-8 h-8z" fill="${PAPER}"/>
-  <circle cx="222" cy="374" r="7" fill="${RED}"/><circle cx="238" cy="388" r="7" fill="${BLUE}"/>
-  <circle cx="206" cy="388" r="5" fill="#666"/>
-  <!-- thumbs -->
-  <ellipse cx="108" cy="368" rx="16" ry="13" fill="${PAPER}" stroke="${INK}" stroke-width="4"/>
-  <ellipse cx="252" cy="368" rx="16" ry="13" fill="${PAPER}" stroke="${INK}" stroke-width="4"/>
-</svg>`;
 
 // ── Boarding pass printed onto the red circle ──────────────
 export const ticket = () => `

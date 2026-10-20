@@ -38,6 +38,15 @@ for (const h of ["Content-Security-Policy", "Strict-Transport-Security", "X-Cont
 const metaCsp = /http-equiv="Content-Security-Policy" content="([^"]+)"/.exec(html)?.[1] || "";
 check(/script-src 'self'(;|$)/.test(metaCsp) && !/unsafe-(inline|eval)/.test(metaCsp), "meta CSP: script-src 'self' only, no unsafe-inline/eval");
 
+// 3b. Self-hosted game pages: no inline script, and their policy only loosens what Unity needs.
+const gameRule = /\n\/games\/\*\n([\s\S]*?)\n\n/.exec(headers)?.[1] || "";
+check(/Content-Security-Policy:/.test(gameRule) && !/unsafe-inline|'unsafe-eval'/.test(gameRule), "/games/* CSP allows WebAssembly but no unsafe-inline / unsafe-eval");
+check(!/\n\/\*\n[^\n]*(Content-Security-Policy|X-Frame-Options)/.test(headers.replace(/\n {2}/g, " ")), "page-only headers (CSP, X-Frame-Options) aren't applied to /* where they'd also hit /games/*");
+for (const id of ["haunted-house", "kitchen-chaos"]) {
+  const page = await readFile(`dist/games/${id}/index.html`, "utf8").catch(() => null);
+  if (page) check(!/<script(?![^>]*\bsrc=)[^>]*>/i.test(page) && !/\sstyle\s*=/i.test(page), `games/${id} play page has no inline script or style`);
+}
+
 // 4. Vendored libraries match the hashes published by cdnjs (verified 2026-10-20).
 const pinned = {
   "site/js/vendor/gsap.min.js": "7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==",

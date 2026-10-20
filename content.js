@@ -4,6 +4,23 @@
 //  Anything set to null is hidden on the page, never faked.
 // ─────────────────────────────────────────────────────────────
 
+import cpData from "./cp.json" with { type: "json" };
+
+const LEVELS = {
+  Advanced: ["Dynamic Programming", "Divide and Conquer", "Backtracking", "Trie", "Segment Tree", "Binary Indexed Tree", "Union-Find", "Quickselect", "Ordered Set"],
+  Intermediate: ["HashMap and Set", "Binary Search", "Math", "Greedy Algorithms", "Bit Manipulation", "Trees", "Binary Tree", "Recursion", "DFS", "BFS", "Design", "Brainteaser"],
+  Fundamental: ["Arrays", "String", "Sorting", "Two Pointers", "Matrix", "Simulation", "Enumeration", "Linked Lists", "Queue and Stacks"],
+};
+function groupTopics(counts, minShown) {
+  const known = new Set(Object.values(LEVELS).flat());
+  const unknown = Object.keys(counts).filter((t) => !known.has(t));
+  if (unknown.length) console.warn(`! topics with no level yet (add them to LEVELS in content.js): ${unknown.join(", ")}`);
+  return Object.entries(LEVELS).map(([level, names]) => {
+    const all = names.filter((n) => counts[n]).map((n) => [n, counts[n]]).sort((x, y) => y[1] - x[1]);
+    return { level, items: all.filter(([, c]) => c >= minShown), more: all.filter(([, c]) => c < minShown) };
+  });
+}
+
 export default {
   site: {
     url: "https://aman0singh-portfolio.netlify.app", // change if you move to a custom domain
@@ -19,6 +36,8 @@ export default {
     coords: "28.67° N, 77.45° E",
     timeZone: "Asia/Kolkata",
     tagline: ["building games & software,", "one project at a time."],
+    avatar: { src: "img/avatar.webp", alt: "Aman's avatar: a chibi character with messy black hair and a black hoodie", note: "a.k.a. Lucifer" },
+    polaroid: { src: "img/haunted-house-level2.webp", alt: "Haunted House, level 2: a gargoyle's red vision cone sweeps a purple bedroom while the player sneaks past", caption: "haunted house, level 2" },
     intro: {
       before: "I'm a CSE student who builds software in C++ and Python, and ",
       underline: "games in Unity",
@@ -30,7 +49,7 @@ export default {
       { label: "UNITY", dot: "yolk" },
       { label: "C++", dot: "red" },
     ],
-    alsoInto: ["VALORANT, AMVS", "AND A ", { blue: "100-DAY" }, " LEETCODE STREAK"],
+    alsoInto: ["VALORANT, AMVS", "AND ", { blue: "100 DAYS" }, " OF LEETCODE"],
     education: "B.Tech CSE · ABES Engineering College (AKTU) · 2028",
     lookingFor: "SDE internships now. Indie game dev later.",
   },
@@ -66,7 +85,11 @@ export default {
         { key: "FEED", value: "GamerPower API" },
         { key: "SHIP", value: "Inno Setup + GitHub Releases" },
       ],
-      screenshot: null, // PLACEHOLDER: "img/gamestash.webp"
+      screenshots: [
+        { src: "img/gamestash-free-now.webp", label: "FREE NOW", alt: "GameStash's Free now tab: a spotlight on the giveaway ending soonest, store filters with counts, and a grid of free games" },
+        { src: "img/gamestash-my-stash.webp", label: "MY STASH", alt: "GameStash's My stash tab: 12 claimed games worth Rs. 10,512 at list price, each with a button to open its store" },
+        { src: "img/gamestash-profile.webp", label: "PROFILE", alt: "GameStash's profile page: games stashed, money saved, a per-store breakdown and an editable bio" },
+      ],
     },
     {
       id: "rag-qa",
@@ -135,7 +158,7 @@ export default {
         page: null, // PLACEHOLDER: itch.io game page, e.g. "https://not-lucifer.itch.io/haunted-house"
         aspect: "16 / 9",
       },
-      screenshot: null, // PLACEHOLDER: "img/haunted-house.webp"
+      screenshot: "img/haunted-house-level2.webp",
     },
     {
       id: "kitchen-chaos",
@@ -161,7 +184,7 @@ export default {
         page: null, // PLACEHOLDER: itch.io game page
         aspect: "16 / 9",
       },
-      screenshot: null, // PLACEHOLDER: "img/kitchen-chaos.webp"
+      screenshot: "img/kitchen-chaos.webp",
     },
   ],
 
@@ -171,37 +194,20 @@ export default {
     repo: "https://github.com/not-Lucifer/Roll-A-Ball",
   },
 
-  // ── Competitive programming. Update by hand. ──────────────
+  // ── Competitive programming ───────────────────────────
+  // Numbers come from cp.json. Refresh it with `node update-cp.mjs` (reads your Codolio profile).
   cp: {
-    lastUpdated: "2026-10-20", // PLACEHOLDER: confirm these numbers are current
+    source: cpData.source,
+    lastUpdated: cpData.lastUpdated,
     leetcode: {
-      handle: "not_lucy_13",
-      rating: 1461,
-      peak: 1507,
-      contests: 4,
-      topPercent: 58, // global rank 511,564 / 888,637
-      solved: null, // PLACEHOLDER: exact total, e.g. 141
-      split: null, // PLACEHOLDER: { easy: 0, medium: 0, hard: 0 }
-      solvedApprox: "~140",
-      badges: ["50 Days Badge 2026", "100 Days Badge 2026"],
+      ...cpData.leetcode,
+      topPercent: 58, // from the LeetCode profile itself: global rank 511,564 of 888,637
       language: "C++",
     },
-    codechef: {
-      handle: "lucifer_609",
-      rating: 1171,
-      stars: 1,
-      division: "Div 4",
-      contests: 11,
-      solved: 182,
-    },
-    topics: [
-      { level: "Advanced", items: [["Dynamic Programming", 11], ["Divide and Conquer", 6], ["Backtracking", 1]] },
-      { level: "Intermediate", items: [["Hash Table", 31], ["Binary Search", 29], ["Math", 21]] },
-      {
-        level: "Fundamental",
-        items: [["Array", 93], ["String", 30], ["Sorting", 26], ["Two Pointers", 22], ["Matrix", 9], ["Simulation", 9], ["Stack", 6], ["Enumeration", 3]],
-      },
-    ],
+    codechef: { ...cpData.codechef, division: "Div 4" },
+    hackerrank: cpData.hackerrank,
+    // Grouped the way LeetCode's own skills panel groups them. Topics under minShown are listed, not drawn.
+    topics: groupTopics(cpData.leetcode.topics, 4),
   },
 
   // ── How I work with AI ────────────────────────────────────
@@ -254,21 +260,21 @@ export default {
     { group: "Backend / AI", items: ["FastAPI", "LangChain", "ChromaDB", "SQLite", "Streamlit", "MediaPipe (team)"] },
     { group: "Problem solving", items: ["Data Structures & Algorithms in C++"] },
     { group: "Networking", items: ["Network protocols", "Cisco Packet Tracer"] },
-    { group: "Tools", items: ["Git / GitHub", "Claude / Claude Code"] },
+    { group: "Tools", items: ["Git / GitHub", "VS Code", "Unity Editor", "Claude / Claude Code"] },
   ],
-  certifications: {
-    issuer: "Cisco Networking Academy",
-    items: [
-      { name: "Networking Basics", url: null }, // PLACEHOLDER: credential link
-      { name: "Packet Tracer", url: null },
-      { name: "Python Essentials 1", url: null },
-      { name: "Python Essentials 2", url: null },
-    ],
-  },
+  // Listed on /certificates/ (each opens its PDF from site/certificates/). The main page shows only a small folder.
+  certifications: [
+    { name: "3D Stealth Game: Haunted House", issuer: "Unity Learn", date: "2026-10-18", length: "4h course", file: "unity-3d-stealth-game-haunted-house.pdf", course: "https://learn.unity.com/course/3d-stealth-game-haunted-house" },
+    { name: "Exploratory Data Analysis", issuer: "NASSCOM FutureSkills Prime", date: "2026-10-16", note: "IT-ITeS Sector Skills Council", file: "nasscom-exploratory-data-analysis.pdf" },
+    { name: "3D Beginner Game: Roll-a-Ball", issuer: "Unity Learn", date: "2026-06-20", length: "2h 50m course", file: "unity-roll-a-ball.pdf", course: "https://learn.unity.com/course/roll-a-ball" },
+    { name: "Python Essentials 2", issuer: "Cisco Networking Academy", date: "2026-02-13", note: "with Python Institute, via ABES", file: "cisco-python-essentials-2.pdf" },
+    { name: "Networking Basics", issuer: "Cisco Networking Academy", date: "2026-02-11", note: "via ABES Engineering College", file: "cisco-networking-basics.pdf" },
+    { name: "Python Essentials 1", issuer: "Cisco Networking Academy", date: "2026-02-06", note: "with Python Institute, via ABES", file: "cisco-python-essentials-1.pdf" },
+    { name: "Getting Started with Cisco Packet Tracer", issuer: "Cisco Networking Academy", date: "2025-10-30", note: "via ABES Engineering College", file: "cisco-packet-tracer.pdf" },
+  ],
   afterHours: [
-    { name: "Lucilock", what: "YouTube · Valorant & story-mode gaming", url: null }, // PLACEHOLDER: channel URL
-    { name: "Shadow Sync", what: "YouTube · AMVs", url: null }, // PLACEHOLDER: channel URL
-    { name: "The Hollow Crew", what: "Discord · gaming & content creation (founder)", url: null }, // PLACEHOLDER: invite link
+    { name: "Lucilock", what: "YouTube · Valorant & story-mode gaming", url: "https://www.youtube.com/@LuciLock-i2i" },
+    { name: "Lucilock Hub", what: "Discord · gaming & content creation (founder)", url: "https://discord.com/invite/cQdYMTGSWV" },
   ],
   afterHoursSkills: "video editing, visual design, showing up every week",
 

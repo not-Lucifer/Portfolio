@@ -10,6 +10,8 @@ src/art.mjs       ← the SVG artwork (mascot, stamps, ticket, game posters)
 site/             ← css, js, fonts, images, _headers (copied into dist/)
 check.mjs         ← security + accessibility checks
 dev.mjs           ← local preview with production headers
+cp.json           ← competitive-programming stats (written by update-cp.mjs from Codolio)
+import-game.mjs   ← copies a Unity Web build into games/<id>/ (git-ignored, large)
 ```
 
 ## Run it
@@ -25,11 +27,12 @@ Requires Node 20+. Nothing to install.
 
 Everything lives in `content.js`. Anything set to `null` is **hidden**, never faked.
 
-- **Competitive programming:** edit `cp.leetcode`, `cp.codechef` and `cp.topics`, then set `cp.lastUpdated` to today's date (`"YYYY-MM-DD"`). The page shows that date.
-- **Exact LeetCode total:** set `cp.leetcode.solved` (e.g. `143`) and `split: { easy, medium, hard }`. Until then it shows `~140`.
+- **Competitive programming:** run `node update-cp.mjs`. It reads your public [Codolio profile](https://codolio.com/profile/not-lucifer) (LeetCode, CodeChef, HackerRank) and rewrites `cp.json`, including the "last updated" date. The live site never calls Codolio; it only reads `cp.json`. The LeetCode global-rank percentage and CodeChef division aren't in Codolio's data, so edit those by hand in `content.js` under `cp`.
 - **Screenshots:** drop a `.webp` into `site/img/` and set the project's `screenshot`, e.g. `"img/haunted-house.webp"`. It replaces the drawn placeholder. Keep them under ~200 KB (1280px wide is plenty).
 - **CV:** put `aman-singh-cv.pdf` in `site/` and set `links.cv: "/aman-singh-cv.pdf"`.
-- **YouTube / Discord / Cisco credentials:** fill in the `url` fields in `afterHours` and `certifications`.
+- **YouTube / Discord:** fill in the `url` fields in `afterHours`.
+- **Certificates:** put the PDF in `site/certificates/` with a plain name (no email or student ID in the filename), then add an entry to `certifications` in `content.js`. It appears on `/certificates/`, and the folder on the main page updates its count.
+- **Change the favicon:** replace `site/favicon-32.png`, `site/favicon-192.png` and `site/apple-touch-icon.png` (180×180, no transparency).
 
 Run `node check.mjs` after editing. It refuses unsafe links (anything that isn't `https:`, `mailto:` or a site path).
 
@@ -46,6 +49,29 @@ GitHub Pages also works, but it ignores `_headers`; the CSP still applies throug
 ## Make the games playable
 
 Both games load only when a visitor presses **Play**, and phones get a "best played on desktop" note instead of the iframe.
+
+### Self-hosted (set up now)
+
+Both builds are imported into `games/` and served from this site:
+
+```bash
+node import-game.mjs "D:/Mygames/Haunted House/Builds/Web" haunted-house
+node import-game.mjs "D:/Mygames/Kitchen Chaos DEMO/My project/Builds" kitchen-chaos
+```
+
+Re-run these after every new Unity build. The build generates a play page for each game (`/games/<id>/`) with a loading bar in the site's style, and the Play button picks it up automatically.
+
+**Before you deploy, read this:**
+
+- **`games/` is git-ignored.** Haunted House's `game.data` is 117 MB, over GitHub's 100 MB file limit. A deploy from GitHub won't include the games. Deploy from your PC instead:
+  `node build.mjs`, then `npx netlify-cli deploy --prod --dir dist` (log in once with `npx netlify-cli login`).
+- **Size: each play downloads 158 MB (Haunted House) or 88 MB (Kitchen Chaos)**, uncompressed. That counts against your Netlify plan's bandwidth, and huge single files upload unreliably. Rebuild with compression first:
+  **Player Settings → Publishing Settings → Compression Format: Brotli**, and tick **Decompression Fallback**. The files come out as `.unityweb` and work on any host with no special headers. Then re-run `import-game.mjs`.
+- The **Quit / Exit** buttons in both games do nothing on the web (Unity's `Application.Quit` is ignored in browsers). Hide them for Web builds if you like.
+
+### Or use itch.io instead
+
+Setting `play.embed` in `content.js` overrides the self-hosted build.
 
 ### 1 · Build each game for the web
 
@@ -68,11 +94,6 @@ Test locally before uploading: Unity's **Build And Run** serves the build for yo
 4. Set visibility to **Public** and save. Restricted or draft pages can't be embedded.
 5. Open the project's **Distribute → Embed game** page and copy the iframe `src`. It looks like `https://itch.io/embed-upload/1234567?color=151515`.
 6. In `content.js`, under the game's `play`, set `embed` to that URL and `page` to the game's itch.io page URL.
-
-### Or: host the build on this site
-
-Copy the build folder to `site/games/haunted-house/` and set `embed: "/games/haunted-house/index.html"`.
-`_headers` already gives `/games/*` the looser policy Unity needs (WebAssembly, blob workers, inline loader script). The rest of the site stays strict.
 
 ## Security notes
 

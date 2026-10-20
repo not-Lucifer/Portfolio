@@ -1,0 +1,84 @@
+{
+  "source": {
+    "name": "Codolio",
+    "url": "https://codolio.com/profile/not-lucifer"
+  },
+  "lastUpdated": "2026-10-20",
+  "leetcode": {
+    "handle": "not_lucy_13",
+    "rating": 1461,
+    "peak": 1507,
+    "contests": 4,
+    "solved": 140,
+    "easy": 82,
+    "medium": 55,
+    "hard": 3,
+    "activeDays": 100,
+    "maxStreak": 34,
+    "badges": [
+      "100 Days Badge 2026",
+      "50 Days Badge 2026"
+    ],
+    "languages": [
+      "C++",
+      "C#"
+    ],
+    "topics": {
+      "Quickselect": 1,
+      "Two Pointers": 22,
+      "String": 30,
+      "Math": 21,
+      "BFS": 2,
+      "Segment Tree": 1,
+      "DFS": 3,
+      "Design": 3,
+      "Backtracking": 1,
+      "Matrix": 9,
+      "Dynamic Programming": 11,
+      "Bit Manipulation": 7,
+      "Divide and Conquer": 6,
+      "HashMap and Set": 31,
+      "Trie": 1,
+      "Trees": 4,
+      "Enumeration": 3,
+      "Ordered Set": 1,
+      "Binary Tree": 4,
+      "Queue and Stacks": 1,
+      "Binary Search": 29,
+      "Recursion": 4,
+      "Sorting": 26,
+      "Binary Indexed Tree": 1,
+      "Greedy Algorithms": 10,
+      "Simulation": 9,
+      "Brainteaser": 1,
+      "Linked Lists": 3,
+      "Arrays": 93,
+      "Union-Find": 1
+    }
+  },
+  "codechef": {
+    "handle": "lucifer_609",
+    "rating": 1171,
+    "peak": 1171,
+    "stars": 1,
+    "contests": 11,
+    "solved": 182,
+    "ratingHistory": [
+      1004,
+      1106,
+      1117,
+      1163,
+      1164,
+      1139,
+      1123,
+      1116,
+      1147,
+      1135,
+      1171
+    ]
+  },
+  "hackerrank": {
+    "handle": "amansingh_makem1",
+    "solved": 17
+  }
+}

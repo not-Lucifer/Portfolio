@@ -9,11 +9,11 @@
     "rating": 1461,
     "peak": 1507,
     "contests": 4,
-    "solved": 140,
-    "easy": 82,
+    "solved": 141,
+    "easy": 83,
     "medium": 55,
     "hard": 3,
-    "activeDays": 100,
+    "activeDays": 101,
     "maxStreak": 34,
     "badges": [
       "100 Days Badge 2026",
@@ -40,7 +40,7 @@
       "HashMap and Set": 31,
       "Trie": 1,
       "Trees": 4,
-      "Enumeration": 3,
+      "Enumeration": 4,
       "Ordered Set": 1,
       "Binary Tree": 4,
       "Queue and Stacks": 1,
@@ -52,7 +52,7 @@
       "Simulation": 9,
       "Brainteaser": 1,
       "Linked Lists": 3,
-      "Arrays": 93,
+      "Arrays": 94,
       "Union-Find": 1
     }
   },
@@ -79,6 +79,6 @@
   },
   "hackerrank": {
     "handle": "amansingh_makem1",
-    "solved": 17
+    "solved": 21
   }
 }

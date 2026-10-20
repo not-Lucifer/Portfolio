@@ -1,0 +1,28 @@
+# Rebuilds the site on Netlify once a day so the competitive-programming stats stay fresh.
+# It only pings a Netlify build hook: no checkout, no commits, nothing written to the repo.
+# Setup: Netlify → Site configuration → Build & deploy → Build hooks → add one, then put its URL in
+# GitHub → Settings → Secrets and variables → Actions → New repository secret, named NETLIFY_BUILD_HOOK.
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: "30 0 * * *" # 00:30 UTC = 06:00 in India
+  workflow_dispatch: # "Run workflow" button for a manual refresh
+
+permissions: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger Netlify build
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::Add the NETLIFY_BUILD_HOOK secret first (see the comment at the top of this file)."
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST -d '{}' "$HOOK?trigger_title=Daily+stats+refresh"
+          echo "Netlify build triggered."

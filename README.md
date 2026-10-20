@@ -43,6 +43,16 @@ git push
 
 If the repo isn't linked yet: Netlify → **aman0singh-portfolio → Site configuration → Build & deploy → Continuous deployment → Link repository** → GitHub → `not-Lucifer/Portfolio`, branch `main`. Leave the build settings empty; `netlify.toml` covers them.
 
+### Daily stats refresh
+
+`.github/workflows/daily-rebuild.yml` pings a Netlify build hook every day at 06:00 IST. It doesn't check out or commit anything, so it never shows up as a contributor. One-time setup:
+
+1. Netlify → **aman0singh-portfolio → Site configuration → Build & deploy → Build hooks → Add build hook**. Name it `Daily stats`, branch `main`, then copy the URL.
+2. GitHub → this repo → **Settings → Secrets and variables → Actions → New repository secret**. Name: `NETLIFY_BUILD_HOOK`, value: the URL.
+3. GitHub → **Actions → Daily rebuild → Run workflow** to test it. A new deploy should appear in Netlify.
+
+Keep the hook URL secret: anyone who has it can trigger builds. GitHub pauses scheduled workflows after 60 days with no repo activity; re-enable it from the Actions tab.
+
 Deploy from your PC without git (this also works while a repo is linked, but the next push replaces it):
 
 ```bash
@@ -57,7 +67,7 @@ npx netlify-cli deploy --dir dist --prod   # live
 
 Everything lives in `content.js`. Anything set to `null` is **hidden** on the page, never faked.
 
-- **Competitive programming:** run `node update-cp.mjs`. It reads the public [Codolio profile](https://codolio.com/profile/not-lucifer) (LeetCode, CodeChef, HackerRank) and rewrites `cp.json`, including the "last updated" date. The live site never calls Codolio; it only reads `cp.json`. The LeetCode global-rank percentage and the CodeChef division aren't in Codolio's data, so edit those by hand under `cp` in `content.js`.
+- **Competitive programming: automatic.** Every Netlify build first runs `node update-cp.mjs --soft`, which pulls fresh numbers from the public [Codolio profile](https://codolio.com/profile/not-lucifer) (LeetCode, CodeChef, HackerRank) into `cp.json`, including the "last updated" date. If Codolio is down, the build keeps the saved `cp.json` instead of failing. A GitHub workflow triggers a build every day (see **Daily stats refresh** below), so the numbers are never more than a day old. Visitors' browsers never contact Codolio. Run `node update-cp.mjs` yourself to refresh the local copy. The LeetCode global-rank percentage and the CodeChef division aren't in Codolio's data, so edit those by hand under `cp` in `content.js`.
 - **Projects:** each project has a title, tagline, summary, stack, an honesty badge ("AI-assisted", "Team project", "Tutorial + my additions"…) and links.
 - **Screenshots:** save a `.webp` (about 1280 px wide, under ~200 KB) in `site/img/` and point the project's `screenshot` (or GameStash's `screenshots`) at it. A missing screenshot falls back to a drawn placeholder.
 - **Certificates:** put the PDF in `site/certificates/` with a plain filename (no email or student ID in it), then add an entry to `certifications`. It shows up on `/certificates/`, and the folder on the main page updates its count.

@@ -1,5 +1,6 @@
 [build]
-  command = "node build.mjs"
+  # Pull fresh stats from Codolio first; if that fails, the saved cp.json is used and the build carries on.
+  command = "node update-cp.mjs --soft && node build.mjs"
   publish = "dist"
 
 [build.environment]

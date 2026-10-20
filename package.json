@@ -1,0 +1,14 @@
+{
+  "name": "aman-singh-portfolio",
+  "private": true,
+  "type": "module",
+  "description": "Scrapbook portfolio. Zero runtime dependencies.",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node dev.mjs",
+    "check": "node check.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

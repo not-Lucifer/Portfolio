@@ -181,8 +181,9 @@ export default {
       statement: ["THE ORDERS KEEP COMING.", "THE PAN KEEPS BURNING."],
       repo: "https://github.com/not-Lucifer/Kitchen-Chaos",
       play: {
-        embed: null, // PLACEHOLDER: itch.io embed URL
-        page: null, // PLACEHOLDER: itch.io game page
+        // Unity Play's game frame, like Haunted House. Overrides the self-hosted build.
+        embed: "https://play-prod.struckd.com/api/v1/games/game/b3080f64-4f1a-4d4f-ad74-fbd22210822d/build/latest/frame",
+        page: "https://play.unity.com/en/games/b3080f64-4f1a-4d4f-ad74-fbd22210822d/kitchen-chaos",
         aspect: "16 / 9",
       },
       screenshot: "img/kitchen-chaos.webp",

@@ -3,6 +3,7 @@ import { cp, mkdir, rm, writeFile, readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import content from "./content.js";
 import * as art from "./src/art.mjs";
+import { cpFingerprint } from "./src/cp-fingerprint.mjs";
 
 const C = content;
 const OUT = new URL("./dist/", import.meta.url);
@@ -547,6 +548,7 @@ await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 await cp(new URL("./site/", import.meta.url), OUT, { recursive: true });
 await writeFile(new URL("index.html", OUT), page());
+await writeFile(new URL("stats-version.txt", OUT), cpFingerprint(JSON.parse(await readFile(new URL("./cp.json", import.meta.url), "utf8"))) + "\n");
 
 // /certificates/: the receipts live on their own page, so the scrapbook stays uncluttered. No JavaScript.
 const issuerClass = (i) => (/unity/i.test(i) ? "is-unity" : /cisco/i.test(i) ? "is-cisco" : "is-other");

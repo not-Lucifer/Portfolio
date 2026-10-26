@@ -1,0 +1,52 @@
+# Keeps the competitive-programming stats fresh without burning Netlify credits.
+# Once a week it fetches the stats from Codolio and compares them with what the live site shows
+# (/stats-version.txt). Only if they differ does it ping the Netlify build hook. Each production deploy
+# costs 15 of the free plan's 300 monthly credits, so this costs at most 60 a month, and 0 in weeks
+# where nothing changed. It never commits anything, so it never shows up as a contributor.
+# Setup: Netlify → Project configuration → Build & deploy → Build hooks → add one, then put its URL in
+# GitHub → Settings → Secrets and variables → Actions → New repository secret, named NETLIFY_BUILD_HOOK.
+name: Weekly stats refresh
+
+on:
+  schedule:
+    - cron: "30 0 * * 1" # Mondays 00:30 UTC = 06:00 in India
+  workflow_dispatch: # "Run workflow" button for a manual check
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Compare fresh stats with the live site
+        id: compare
+        run: |
+          node update-cp.mjs
+          fresh=$(node update-cp.mjs --fingerprint)
+          live=$(curl --silent --fail https://aman0singh-portfolio.netlify.app/stats-version.txt || echo "none")
+          echo "fresh=$fresh live=$live"
+          if [ "$fresh" = "$live" ]; then
+            echo "Stats unchanged: skipping the deploy (saves 15 credits)."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Netlify build
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::Add the NETLIFY_BUILD_HOOK secret first (see the comment at the top of this file)."
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST -d '{}' "$HOOK?trigger_title=Weekly+stats+refresh"
+          echo "Netlify build triggered."

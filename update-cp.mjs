@@ -2,11 +2,18 @@
 //   node update-cp.mjs          → by hand; fails loudly if Codolio can't be read
 //   node update-cp.mjs --soft   → Netlify build; on any problem keeps the existing cp.json and carries on
 // The site never calls Codolio from the visitor's browser. It only reads the cp.json this script writes.
+//   node update-cp.mjs --fingerprint → print the fingerprint of the current cp.json (used by the weekly workflow)
 import { readFile, writeFile } from "node:fs/promises";
+import { cpFingerprint } from "./src/cp-fingerprint.mjs";
 
 const USER = "not-lucifer";
 const FILE = new URL("./cp.json", import.meta.url);
 const soft = process.argv.includes("--soft");
+
+if (process.argv.includes("--fingerprint")) {
+  console.log(cpFingerprint(JSON.parse(await readFile(FILE, "utf8"))));
+  process.exit(0);
+}
 
 async function fetchStats() {
   const res = await fetch(`https://api.codolio.com/profile?userKey=${USER}`, {

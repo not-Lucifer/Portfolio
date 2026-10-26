@@ -3,17 +3,17 @@
     "name": "Codolio",
     "url": "https://codolio.com/profile/not-lucifer"
   },
-  "lastUpdated": "2026-10-20",
+  "lastUpdated": "2026-10-26",
   "leetcode": {
     "handle": "not_lucy_13",
     "rating": 1461,
     "peak": 1507,
     "contests": 4,
-    "solved": 141,
-    "easy": 83,
-    "medium": 55,
+    "solved": 147,
+    "easy": 87,
+    "medium": 57,
     "hard": 3,
-    "activeDays": 101,
+    "activeDays": 103,
     "maxStreak": 34,
     "badges": [
       "100 Days Badge 2026",
@@ -26,10 +26,10 @@
     "topics": {
       "Quickselect": 1,
       "Two Pointers": 22,
-      "String": 30,
-      "Math": 21,
+      "String": 31,
+      "Math": 22,
       "BFS": 2,
-      "Segment Tree": 1,
+      "Segment Tree": 2,
       "DFS": 3,
       "Design": 3,
       "Backtracking": 1,
@@ -37,7 +37,7 @@
       "Dynamic Programming": 11,
       "Bit Manipulation": 7,
       "Divide and Conquer": 6,
-      "HashMap and Set": 31,
+      "HashMap and Set": 32,
       "Trie": 1,
       "Trees": 4,
       "Enumeration": 4,
@@ -47,12 +47,12 @@
       "Binary Search": 29,
       "Recursion": 4,
       "Sorting": 26,
-      "Binary Indexed Tree": 1,
+      "Binary Indexed Tree": 2,
       "Greedy Algorithms": 10,
-      "Simulation": 9,
+      "Simulation": 10,
       "Brainteaser": 1,
       "Linked Lists": 3,
-      "Arrays": 94,
+      "Arrays": 96,
       "Union-Find": 1
     }
   },
@@ -79,6 +79,6 @@
   },
   "hackerrank": {
     "handle": "amansingh_makem1",
-    "solved": 21
+    "solved": 23
   }
 }

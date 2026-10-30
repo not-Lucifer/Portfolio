@@ -275,9 +275,9 @@ export default {
     { name: "Python Essentials 1", issuer: "Cisco Networking Academy", date: "2026-02-06", note: "with Python Institute, via ABES", file: "cisco-python-essentials-1.pdf" },
     { name: "Getting Started with Cisco Packet Tracer", issuer: "Cisco Networking Academy", date: "2025-10-30", note: "via ABES Engineering College", file: "cisco-packet-tracer.pdf" },
   ],
-  // Tiles on /hackathons/ (hackathons and game jams, newest first). A tile shows only name + achievement;
-  // clicking opens the rest. Any field set to null (or left out) is hidden, never faked.
-  // Still to fill in for Orchestrate: `project` (what you submitted), `problem` (the problem statement), `repo`.
+  // Tiles in the Hackathons & game jams section of the main page, newest first. A tile shows only the name + any
+  // achievement; clicking it opens the rest. kind is "Hackathon" (uses `problem`) or "Game jam" (uses `theme`).
+  // Any field set to null (or left out) is hidden, never faked.
   hackathons: [
     {
       name: "HackerRank Orchestrate",
@@ -289,9 +289,10 @@ export default {
       rank: 332,
       outOf: 4094,
       percentile: "Top 9%",
-      problem: null,
-      project: "Built and deployed an AI agent.",
-      repo: null,
+      problem: "“Ghost Data Still Exists”: a fictional shop lost $2.4M after a customer it had “deleted” came back from backups, search indexes and sync jobs. Build an AI deletion-audit agent that decides, for 518 requests, whether a person's data is really gone (COMPLETE, INCOMPLETE or NOT_APPLICABLE) and writes the ordered steps to fix or prove it.",
+      project: "A deletion-audit agent in Python. It resolves every current and past identifier of a person, reads each record's real state from the evidence files instead of trusting reported status, applies the retention rules, and writes the findings, fixes and checks. Deterministic, standard library only, no model calls in the final run. It scored 100% on status for the 32 labelled samples (in-sample).",
+      stack: ["Python"],
+      repo: "https://github.com/not-Lucifer/Orchestrate---Oct26",
       link: null,
     },
   ],

@@ -66,7 +66,7 @@ const topbar = () => `
   <nav class="tb-nav" aria-label="Main">
     <a href="#gamestash" class="nav-link">WORK</a>
     <a href="#haunted-house" class="nav-link">PLAY</a>
-    <a href="/hackathons/" class="nav-link">HACKATHONS</a>
+    <a href="#hackathons" class="nav-link">HACKATHONS</a>
     <div class="connect" data-connect>
       <button class="nav-link connect-btn" type="button" aria-expanded="false" aria-controls="connect-menu">CONNECT${art.ellipse("connect-ring", false)}</button>
       <ul class="connect-menu" id="connect-menu">
@@ -370,6 +370,55 @@ function aiSlide() {
 </section>`;
 }
 
+// ── hackathons & game jams ────────────────────────────────
+function hackathonSlide() {
+  const list = C.hackathons || [];
+  if (!list.length) return "";
+  const tile = (h, i) => {
+    const [y, m] = h.date.split("-");
+    const mon = new Date(Date.UTC(+y, +m - 1, 1)).toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" }).toUpperCase();
+    return `
+    <li data-rv-pop>
+      <button class="tile tile-${(i % 3) + 1}" type="button" data-open="hk-${i}" aria-haspopup="dialog">
+        <span class="tile-kind">${esc(h.kind)} · ${mon} ${esc(y)}</span>
+        <span class="tile-name">${esc(h.name)}</span>
+        ${h.achievement ? `<span class="tile-ach">${esc(h.achievement)}</span>` : ""}
+        <span class="tile-more" aria-hidden="true">DETAILS →</span>
+      </button>
+    </li>`;
+  };
+  const dialog = (h, i) => {
+    const rank = Number.isFinite(h.rank) ? `#${h.rank.toLocaleString("en-US")}${Number.isFinite(h.outOf) ? ` of ${h.outOf.toLocaleString("en-US")}` : ""}${h.percentile ? ` · ${h.percentile}` : ""}` : null;
+    const rows = [
+      h.kind === "Game jam" ? ["Theme", h.theme] : ["Problem statement", h.problem],
+      ["Project submitted", h.project],
+      ["Built with", h.stack?.length ? h.stack.join(" · ") : null],
+      ["Rank", rank],
+      ["Achievement", h.achievement],
+      ["Organizer", [h.organizer, h.format].filter(Boolean).join(" · ") || null],
+    ].filter(([, v]) => v);
+    const links = [h.link && ext(h.link, `EVENT PAGE <span aria-hidden="true">↗</span>`, "u-link"), h.repo && ext(h.repo, `CODE ON GITHUB <span aria-hidden="true">↗</span>`, "u-link")].filter(Boolean).join("");
+    return `
+  <dialog class="hk-dialog" id="hk-${i}" aria-labelledby="hk-${i}-t">
+    <form method="dialog"><button class="hk-close" aria-label="Close">CLOSE ✕</button></form>
+    <p class="hk-meta">${esc(h.kind)} · ${esc(h.date)}</p>
+    <h3 class="hk-name" id="hk-${i}-t">${esc(h.name)}</h3>
+    <dl class="hk-rows">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+    ${links ? `<p class="hk-links">${links}</p>` : ""}
+  </dialog>`;
+  };
+  return `
+<section class="slide hackathons" id="hackathons" aria-labelledby="hackathons-title" data-slide="hackathons">
+  <div class="hk-head">
+    <p class="section-kicker" data-rv><span class="slash">/</span> COMPETITIONS</p>
+    <h2 class="tbx-title" id="hackathons-title">${titleLines(["HACKATHONS", "& JAMS"])}</h2>
+    <p class="tbx-edu" data-rv>Hackathons and game jams. Tap a tile for the problem or theme, what I built and where it landed.</p>
+  </div>
+  <ul class="tiles">${list.map(tile).join("")}
+  </ul>${list.map(dialog).join("")}
+</section>`;
+}
+
 // ── toolbox ───────────────────────────────────────────────
 function toolboxSlide() {
   const cert = C.certifications;
@@ -528,6 +577,7 @@ ${hero()}
 ${C.projects.map(projectSlide).join("\n")}
 ${numbersSlide()}
 ${aiSlide()}
+${hackathonSlide()}
 ${toolboxSlide()}
 ${notebookSlide()}
 </main>
@@ -543,7 +593,7 @@ const hashOf = async (...files) => {
   for (const f of files) h.update(await readFile(new URL(f, import.meta.url)));
   return h.digest("hex").slice(0, 10);
 };
-const HASH = await hashOf("./site/css/style.css", "./site/js/main.js", "./site/js/boot.js", "./site/js/hackathons.js", "./content.js");
+const HASH = await hashOf("./site/css/style.css", "./site/js/main.js", "./site/js/boot.js", "./content.js");
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
@@ -605,77 +655,6 @@ ${art.defs()}
 `;
 await mkdir(new URL("certificates/", OUT), { recursive: true });
 await writeFile(new URL("certificates/index.html", OUT), certPage);
-
-// /hackathons/: one tile per event (name + achievement); a click opens a <dialog> with the details. Script in /js/hackathons.js.
-const hackList = C.hackathons || [];
-const hackTile = (h, i) => {
-  const [y, m] = h.date.split("-");
-  const mon = new Date(Date.UTC(+y, +m - 1, 1)).toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" }).toUpperCase();
-  return `
-    <li>
-      <button class="tile tile-${(i % 3) + 1}" type="button" data-open="hk-${i}" aria-haspopup="dialog">
-        <span class="tile-kind">${esc(h.kind)} · ${mon} ${esc(y)}</span>
-        <span class="tile-name">${esc(h.name)}</span>
-        ${h.achievement ? `<span class="tile-ach">${esc(h.achievement)}</span>` : ""}
-        <span class="tile-more" aria-hidden="true">DETAILS →</span>
-      </button>
-    </li>`;
-};
-const hackDialog = (h, i) => {
-  const rows = [
-    ["Problem statement", h.problem],
-    ["Project submitted", h.project],
-    ["Rank", Number.isFinite(h.rank) ? `#${h.rank.toLocaleString("en-US")}${Number.isFinite(h.outOf) ? ` of ${h.outOf.toLocaleString("en-US")}` : ""}${h.percentile ? ` · ${h.percentile}` : ""}` : null],
-    ["Achievement", h.achievement],
-    ["Organizer", [h.organizer, h.format].filter(Boolean).join(" · ") || null],
-  ].filter(([, v]) => v);
-  const links = [h.link && ext(h.link, `EVENT PAGE <span aria-hidden="true">↗</span>`, "u-link"), h.repo && ext(h.repo, `CODE <span aria-hidden="true">↗</span>`, "u-link")].filter(Boolean).join("");
-  return `
-<dialog class="hk-dialog" id="hk-${i}" aria-labelledby="hk-${i}-t">
-  <form method="dialog"><button class="hk-close" aria-label="Close">CLOSE ✕</button></form>
-  <p class="stub-meta">${esc(h.kind)} · ${esc(h.date)}</p>
-  <h2 class="stub-name" id="hk-${i}-t">${esc(h.name)}</h2>
-  <dl class="hk-rows">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
-  ${links ? `<p class="stub-links">${links}</p>` : ""}
-</dialog>`;
-};
-const hackPage = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="${csp}">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Hackathons &amp; Game Jams · Aman Singh</title>
-<meta name="description" content="Hackathons and game jams Aman Singh has taken part in, with the result of each.">
-<link rel="canonical" href="${esc(S.url)}/hackathons/">
-<meta name="theme-color" content="#EDE6D8">
-${ICONS}
-<link rel="stylesheet" href="/css/style.css?v=${HASH}">
-</head>
-<body class="certs-page">
-${art.defs()}
-<header class="cp-top">
-  <a class="u-link" href="/"><span aria-hidden="true">←</span> BACK TO THE PORTFOLIO</a>
-  <span>AMAN SINGH</span>
-</header>
-<main class="cp-main">
-  <h1 class="cp-title">HACKATHONS</h1>
-  <div class="cp-sub">
-    <p class="cp-intro">Hackathons and game jams I've entered, newest first. Open a tile for the details.</p>
-    <p class="cp-aside hand">ship it,<br>then see where it lands.</p>
-  </div>
-  <ul class="tiles">${hackList.map(hackTile).join("")}
-  </ul>
-  ${hackList.map(hackDialog).join("")}
-</main>
-<footer class="cp-foot"><p>© ${new Date().getFullYear()} AMAN SINGH</p><a class="u-link" href="/#connect">SAY HI <span aria-hidden="true">↗</span></a></footer>
-<script src="/js/hackathons.js?v=${HASH}"></script>
-</body>
-</html>
-`;
-await mkdir(new URL("hackathons/", OUT), { recursive: true });
-await writeFile(new URL("hackathons/index.html", OUT), hackPage);
 
 // One play page per hosted game. No inline script, so /games/* keeps a strict CSP too.
 for (const [id, m] of Object.entries(hosted)) {

@@ -598,6 +598,26 @@ kbd { display: inline-grid; place-items: center; min-width: 2.3em; height: 2.3em
 [hidden] { display: none !important; }
 .chrome-hidden .pager, .chrome-hidden .to-top, .pager-hidden .pager { opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; }
 
+/* ── hackathons & game jams ───────────────────────────────── */
+.hackathons { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(24px, 4vw, 72px); align-items: center; padding: clamp(28px, 6vh, 72px) var(--gutter) clamp(60px, 10vh, 112px); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: clamp(18px, 2.4vw, 32px); }
+.tile { display: grid; align-content: space-between; gap: .6em; width: 100%; min-height: 12em; padding: 1.2em 1.3em; text-align: left; font: inherit; color: inherit; background: var(--paper-hi); border: 0; box-shadow: var(--shadow-paper); cursor: pointer; transition: translate .2s var(--ease-out); }
+.tile-1 { rotate: -.9deg; } .tile-2 { rotate: .7deg; } .tile-3 { rotate: -.4deg; }
+.tile:hover, .tile:focus-visible { translate: 0 -4px; }
+.tile-kind { font-size: var(--fs-small); letter-spacing: .14em; color: var(--ink-2); }
+.tile-name { font: 400 clamp(28px, 3vw, 40px)/1 var(--f-display); }
+.tile-ach { justify-self: start; padding: .15em .7em; font-size: var(--fs-small); font-weight: 700; color: var(--red-ink); border: 2px solid currentColor; border-radius: 999px; rotate: -2deg; }
+.tile-more { font-size: var(--fs-small); font-weight: 700; letter-spacing: .14em; }
+.hk-dialog { width: min(660px, calc(100vw - 32px)); max-height: calc(100vh - 48px); padding: 1.6em 1.8em 1.8em; color: var(--ink); background: var(--paper-hi); border: 0; box-shadow: var(--shadow-paper); }
+.hk-dialog::backdrop { background: rgba(21, 21, 21, .55); }
+.hk-close { float: right; font: inherit; font-size: var(--fs-small); font-weight: 700; letter-spacing: .14em; color: inherit; background: none; border: 0; cursor: pointer; }
+.hk-meta { font-size: var(--fs-small); letter-spacing: .14em; color: var(--ink-2); }
+.hk-name { margin: .2em 0 0; font: 400 clamp(30px, 4vw, 46px)/1 var(--f-display); }
+.hk-rows { display: grid; gap: 1em; margin: 1.2em 0; }
+.hk-rows dt { font-size: var(--fs-small); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.hk-rows dd { margin: .15em 0 0; }
+.hk-links { display: flex; flex-wrap: wrap; gap: .8em 1.8em; font-size: var(--fs-small); font-weight: 700; }
+
 /* ── reveal states (only when JS + motion are on; boot.js adds .motion) ── */
 .motion [data-rv], .motion [data-rv-pop], .motion [data-rv-visual], .motion [data-rv-cta], .motion [data-pop], .motion .line-in, .motion .c-item, .motion [data-rv-statement] span { opacity: 0; }
 .motion .chat-a { opacity: 0; }
@@ -635,7 +655,7 @@ kbd { display: inline-grid; place-items: center; min-width: 2.3em; height: 2.3em
   .c-sun { top: 82%; }
   .explore { display: none; }
 
-  .project, .numbers, .ai, .toolbox { display: flex; flex-direction: column; gap: 22px; padding-top: 64px; padding-bottom: 64px; }
+  .project, .numbers, .ai, .hackathons, .toolbox { display: flex; flex-direction: column; gap: 22px; padding-top: 64px; padding-bottom: 64px; }
   .pj-visual { width: 100%; aspect-ratio: 1 / 1.08; }
   .vis-rag { aspect-ratio: 1 / 1.25; }
   .vis-game { aspect-ratio: 1 / .95; }
@@ -753,20 +773,6 @@ kbd { display: inline-grid; place-items: center; min-width: 2.3em; height: 2.3em
 .stub-body { padding: 1.1em 1.4em 1.2em; }
 .stub-meta { font-size: var(--fs-small); color: var(--ink-2); letter-spacing: .04em; }
 .stub-name { margin: .25em 0 .55em; font: 400 clamp(26px, 3.2vw, 44px)/1 var(--f-display); }
-.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; margin-top: clamp(32px, 6vh, 64px); }
-.tile { display: grid; align-content: space-between; gap: .6em; width: 100%; min-height: 12em; padding: 1.2em 1.3em; text-align: left; font: inherit; color: inherit; background: var(--paper-hi); border: 0; box-shadow: var(--shadow-paper); cursor: pointer; transition: translate .15s; }
-.tile-1 { rotate: -.7deg; } .tile-2 { rotate: .6deg; } .tile-3 { rotate: -.3deg; }
-.tile:hover, .tile:focus-visible { translate: 0 -4px; }
-.tile-kind { font-size: var(--fs-small); letter-spacing: .14em; color: var(--ink-2); }
-.tile-name { font: 400 clamp(28px, 3vw, 40px)/1 var(--f-display); }
-.tile-ach { justify-self: start; padding: .15em .7em; font-size: var(--fs-small); font-weight: 700; color: var(--red-ink); border: 2px solid currentColor; border-radius: 999px; rotate: -2deg; }
-.tile-more { font-size: var(--fs-small); font-weight: 700; letter-spacing: .14em; }
-.hk-dialog { width: min(640px, calc(100vw - 32px)); padding: 1.6em 1.8em 1.8em; color: var(--ink); background: var(--paper-hi); border: 0; box-shadow: var(--shadow-paper); }
-.hk-dialog::backdrop { background: rgba(21, 21, 21, .55); }
-.hk-close { float: right; font: inherit; font-size: var(--fs-small); font-weight: 700; letter-spacing: .14em; color: inherit; background: none; border: 0; cursor: pointer; }
-.hk-rows { display: grid; gap: 1em; margin: 1.2em 0; }
-.hk-rows dt { font-size: var(--fs-small); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
-.hk-rows dd { margin: .15em 0 0; }
 .stub-links { display: flex; flex-wrap: wrap; gap: .8em 1.8em; font-size: var(--fs-small); font-weight: 700; }
 .cp-foot { display: flex; justify-content: space-between; gap: 1em; padding: 0 var(--gutter) 40px; font-size: var(--fs-small); letter-spacing: .2em; }
 @media (max-width: 700px) {

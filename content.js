@@ -275,9 +275,25 @@ export default {
     { name: "Python Essentials 1", issuer: "Cisco Networking Academy", date: "2026-02-06", note: "with Python Institute, via ABES", file: "cisco-python-essentials-1.pdf" },
     { name: "Getting Started with Cisco Packet Tracer", issuer: "Cisco Networking Academy", date: "2025-10-30", note: "via ABES Engineering College", file: "cisco-packet-tracer.pdf" },
   ],
-  // Listed on /hackathons/, newest first. Add a line per event; leave out anything you don't have (rank, link, ...).
+  // Tiles on /hackathons/ (hackathons and game jams, newest first). A tile shows only name + achievement;
+  // clicking opens the rest. Any field set to null (or left out) is hidden, never faked.
+  // Still to fill in for Orchestrate: `project` (what you submitted), `problem` (the problem statement), `repo`.
   hackathons: [
-    { name: "HackerRank Orchestrate", organizer: "HackerRank", date: "2026-10", format: "Online", what: "Built and deployed an AI agent.", rank: 332, outOf: 4094, result: "Certificate of achievement" },
+    {
+      name: "HackerRank Orchestrate",
+      kind: "Hackathon",
+      organizer: "HackerRank",
+      date: "2026-10",
+      format: "Online",
+      achievement: "Bronze medalist",
+      rank: 332,
+      outOf: 4094,
+      percentile: "Top 9%",
+      problem: null,
+      project: "Built and deployed an AI agent.",
+      repo: null,
+      link: null,
+    },
   ],
   afterHours: [
     { name: "Lucilock", what: "YouTube · Valorant & story-mode gaming", url: "https://www.youtube.com/@LuciLock-i2i" },

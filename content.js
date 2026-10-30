@@ -266,6 +266,7 @@ export default {
   ],
   // Listed on /certificates/ (each opens its PDF from site/certificates/). The main page shows only a small folder.
   certifications: [
+    { name: "Exploratory Data Analysis (Assessment)", issuer: "NASSCOM FutureSkills Prime", date: "2026-10-29", note: "Gold · 92%, IT-ITeS Sector Skills Council", file: "nasscom-eda-assessment-gold.pdf" },
     { name: "3D Stealth Game: Haunted House", issuer: "Unity Learn", date: "2026-10-18", length: "4h course", file: "unity-3d-stealth-game-haunted-house.pdf", course: "https://learn.unity.com/course/3d-stealth-game-haunted-house" },
     { name: "Exploratory Data Analysis", issuer: "NASSCOM FutureSkills Prime", date: "2026-10-16", note: "IT-ITeS Sector Skills Council", file: "nasscom-exploratory-data-analysis.pdf" },
     { name: "3D Beginner Game: Roll-a-Ball", issuer: "Unity Learn", date: "2026-06-20", length: "2h 50m course", file: "unity-roll-a-ball.pdf", course: "https://learn.unity.com/course/roll-a-ball" },
@@ -273,6 +274,10 @@ export default {
     { name: "Networking Basics", issuer: "Cisco Networking Academy", date: "2026-02-11", note: "via ABES Engineering College", file: "cisco-networking-basics.pdf" },
     { name: "Python Essentials 1", issuer: "Cisco Networking Academy", date: "2026-02-06", note: "with Python Institute, via ABES", file: "cisco-python-essentials-1.pdf" },
     { name: "Getting Started with Cisco Packet Tracer", issuer: "Cisco Networking Academy", date: "2025-10-30", note: "via ABES Engineering College", file: "cisco-packet-tracer.pdf" },
+  ],
+  // Listed on /hackathons/, newest first. Add a line per event; leave out anything you don't have (rank, link, ...).
+  hackathons: [
+    { name: "HackerRank Orchestrate", organizer: "HackerRank", date: "2026-10", format: "Online", what: "Built and deployed an AI agent.", rank: 332, outOf: 4094, result: "Certificate of achievement" },
   ],
   afterHours: [
     { name: "Lucilock", what: "YouTube · Valorant & story-mode gaming", url: "https://www.youtube.com/@LuciLock-i2i" },

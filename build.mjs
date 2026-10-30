@@ -66,6 +66,7 @@ const topbar = () => `
   <nav class="tb-nav" aria-label="Main">
     <a href="#gamestash" class="nav-link">WORK</a>
     <a href="#haunted-house" class="nav-link">PLAY</a>
+    <a href="/hackathons/" class="nav-link">HACKATHONS</a>
     <div class="connect" data-connect>
       <button class="nav-link connect-btn" type="button" aria-expanded="false" aria-controls="connect-menu">CONNECT${art.ellipse("connect-ring", false)}</button>
       <ul class="connect-menu" id="connect-menu">
@@ -604,6 +605,62 @@ ${art.defs()}
 `;
 await mkdir(new URL("certificates/", OUT), { recursive: true });
 await writeFile(new URL("certificates/index.html", OUT), certPage);
+
+// /hackathons/: same shape as /certificates/. No JavaScript.
+const hackPage = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="${csp}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Hackathons · Aman Singh</title>
+<meta name="description" content="Hackathons Aman Singh has taken part in, with the result of each.">
+<link rel="canonical" href="${esc(S.url)}/hackathons/">
+<meta name="theme-color" content="#EDE6D8">
+${ICONS}
+<link rel="stylesheet" href="/css/style.css?v=${HASH}">
+</head>
+<body class="certs-page">
+${art.defs()}
+<header class="cp-top">
+  <a class="u-link" href="/"><span aria-hidden="true">←</span> BACK TO THE PORTFOLIO</a>
+  <span>AMAN SINGH</span>
+</header>
+<main class="cp-main">
+  <h1 class="cp-title">HACKATHONS</h1>
+  <div class="cp-sub">
+    <p class="cp-intro">Events I've competed in, newest first.</p>
+    <p class="cp-aside hand">ship it,<br>then see where it lands.</p>
+  </div>
+  <ol class="stubs">
+    ${(C.hackathons || [])
+      .map((h, i) => {
+        const [y, m] = h.date.split("-");
+        const mon = new Date(Date.UTC(+y, +m - 1, 1)).toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" }).toUpperCase();
+        const meta = [h.organizer, h.format].filter(Boolean).map(esc).join(" · ");
+        const rank = Number.isFinite(h.rank) ? `<p class="stub-rank">RANK <b>#${h.rank.toLocaleString("en-US")}</b>${Number.isFinite(h.outOf) ? ` OF ${h.outOf.toLocaleString("en-US")}` : ""}</p>` : "";
+        const links = [h.link && ext(h.link, `EVENT PAGE <span aria-hidden="true">↗</span>`, "u-link"), h.repo && ext(h.repo, `CODE <span aria-hidden="true">↗</span>`, "u-link")].filter(Boolean).join("");
+        return `
+    <li class="stub is-other stub-${(i % 3) + 1}">
+      <time class="stub-date" datetime="${esc(h.date)}"><b>${mon}</b> ${esc(y)}</time>
+      <div class="stub-body">
+        <p class="stub-meta">${meta}</p>
+        <h2 class="stub-name">${esc(h.name)}</h2>
+        <p class="stub-what">${esc(h.what)}${h.result ? ` ${esc(h.result)}.` : ""}</p>
+        ${rank}${links ? `<p class="stub-links">${links}</p>` : ""}
+      </div>
+    </li>`;
+      })
+      .join("")}
+  </ol>
+</main>
+<footer class="cp-foot"><p>© ${new Date().getFullYear()} AMAN SINGH</p><a class="u-link" href="/#connect">SAY HI <span aria-hidden="true">↗</span></a></footer>
+</body>
+</html>
+`;
+await mkdir(new URL("hackathons/", OUT), { recursive: true });
+await writeFile(new URL("hackathons/index.html", OUT), hackPage);
 
 // One play page per hosted game. No inline script, so /games/* keeps a strict CSP too.
 for (const [id, m] of Object.entries(hosted)) {

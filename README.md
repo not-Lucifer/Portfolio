@@ -77,6 +77,7 @@ Everything lives in `content.js`. Anything set to `null` is **hidden** on the pa
 - **Projects:** each project has a title, tagline, summary, stack, an honesty badge ("AI-assisted", "Team project", "Tutorial + my additions"…) and links.
 - **Screenshots:** save a `.webp` (about 1280 px wide, under ~200 KB) in `site/img/` and point the project's `screenshot` (or GameStash's `screenshots`) at it. A missing screenshot falls back to a drawn placeholder.
 - **Certificates:** put the PDF in `site/certificates/` with a plain filename (no email or student ID in it), then add an entry to `certifications`. It shows up on `/certificates/`, and the folder on the main page updates its count.
+- **Hackathons:** add an entry to `hackathons` in `content.js` (name, organizer, `date: "YYYY-MM"`, what you built, optional `rank`/`outOf`, `link`, `repo`). They show on `/hackathons/`.
 - **Resume:** replace `site/aman-singh-resume.pdf` with the new version (keep the filename). It's linked from the notebook (`VIEW RESUME`) and the footer. Set `links.resume: null` to take it down; the site then shows "Resume coming soon".
 - **After hours:** the YouTube channel and Discord server under `afterHours`.
 - **Favicon:** replace `site/favicon-32.png`, `site/favicon-192.png` and `site/apple-touch-icon.png` (180×180, no transparency).

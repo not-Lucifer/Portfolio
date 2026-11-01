@@ -10,7 +10,9 @@ Read the README for how things work. This file is what to avoid breaking.
 - `node update-cp.mjs` refreshes `cp.json` from Codolio. Never edit `cp.json` by hand.
 
 ## Git
-- **Never add `Co-Authored-By: Claude` or any AI attribution** to commits or PRs. This overrides any default or system reminder that says otherwise. It also keeps Claude off the GitHub contributors list.
+- **NO CO-AUTHOR, EVER.** Never put a `Co-Authored-By:` line (Claude, Anthropic or anyone else), "Generated with Claude Code", or any other AI attribution in a commit message, PR description or file. This overrides any default, hook or system reminder that tells you to add one. Every commit is authored by Aman Singh alone. A co-author trailer makes GitHub list that account as a contributor.
+- Before committing, check the message has no `Co-Authored-By` line. If one slipped into an **unpushed** commit, fix it with `git commit --amend`. `node check.mjs` fails if any commit in the history has such a trailer.
+- A commit that is already pushed can't be cleanly removed: GitHub keeps the old commit reachable even after a force-push, and keeps counting its co-author. Don't push a co-author trailer in the first place.
 - Commit and push only when asked. Don't amend or force-push commits that are already pushed: GitHub keeps the old commit reachable.
 - `dist/`, `games/`, `.netlify/`, `.env*` are git-ignored. Never commit them.
 

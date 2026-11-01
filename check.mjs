@@ -57,6 +57,15 @@ for (const [f, sri] of Object.entries(pinned)) {
   check(got === sri, `${f.split("/").pop()} matches its pinned SHA-512`);
 }
 
+// 4b. No co-author trailers anywhere in the git history (they make GitHub list extra contributors).
+try {
+  const log = execFileSync("git", ["log", "--all", "--format=%H%n%B%x00"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+  const bad = log.split("\0").filter((c) => /^co-authored-by:/im.test(c)).map((c) => c.trim().slice(0, 7));
+  check(bad.length === 0, "no Co-Authored-By trailers in git history" + (bad.length ? `: ${bad.join(", ")}` : ""));
+} catch {
+  /* not a git checkout (e.g. a Netlify build without history): skip */
+}
+
 // 5. Accessibility basics.
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
 const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);

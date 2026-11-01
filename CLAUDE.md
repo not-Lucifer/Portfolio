@@ -6,7 +6,7 @@ Read the README for how things work. This file is what to avoid breaking.
 ## Commands
 - `node dev.mjs` serves http://localhost:5173 with production headers (builds once at start; restart after edits, `PORT=5199` to change).
 - `node check.mjs` builds and runs the security + accessibility checks. Run it before every commit.
-- Known failure, not yours: `/games/* CSP allows WebAssembly…` fails because the local games were removed. Any other `✗` is a regression.
+- `check.mjs` should end with no `✗`. (It used to fail the `/games/*` check on Windows because git checks files out with CRLF line endings; it now normalises them.)
 - `node update-cp.mjs` refreshes `cp.json` from Codolio. Never edit `cp.json` by hand.
 
 ## Git

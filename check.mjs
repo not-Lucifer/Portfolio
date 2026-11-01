@@ -12,7 +12,7 @@ const ok = [];
 const check = (cond, msg) => (cond ? ok.push(msg) : fails.push(msg));
 
 const html = await readFile("dist/index.html", "utf8");
-const headers = await readFile("dist/_headers", "utf8");
+const headers = (await readFile("dist/_headers", "utf8")).replace(/\r\n/g, "\n"); // Windows checkouts use CRLF
 
 // 1. CSP-friendly markup: nothing inline that a strict policy would have to allow.
 check(!/<script(?![^>]*\bsrc=)[^>]*>/i.test(html), "no inline <script> blocks");

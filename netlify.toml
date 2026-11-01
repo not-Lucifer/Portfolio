@@ -3,8 +3,8 @@
   command = "node update-cp.mjs --soft && node build.mjs"
   publish = "dist"
   # Skip the deploy (exit 0 = skip) when a push only touches files that don't change the site,
-  # like the README or GitHub workflows. Skipped builds don't use Netlify credits.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)README.md' ':(exclude).github' ':(exclude).gitignore'"
+  # like the README, CLAUDE.md or GitHub workflows. Skipped builds don't use Netlify credits.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)README.md' ':(exclude)CLAUDE.md' ':(exclude).github' ':(exclude).gitignore'"
 
 [build.environment]
   NODE_VERSION = "22"

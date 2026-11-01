@@ -3,17 +3,17 @@
     "name": "Codolio",
     "url": "https://codolio.com/profile/not-lucifer"
   },
-  "lastUpdated": "2026-10-26",
+  "lastUpdated": "2026-11-01",
   "leetcode": {
     "handle": "not_lucy_13",
-    "rating": 1461,
-    "peak": 1507,
-    "contests": 4,
-    "solved": 147,
-    "easy": 87,
+    "rating": 1511,
+    "peak": 1511,
+    "contests": 5,
+    "solved": 149,
+    "easy": 89,
     "medium": 57,
     "hard": 3,
-    "activeDays": 103,
+    "activeDays": 104,
     "maxStreak": 34,
     "badges": [
       "100 Days Badge 2026",
@@ -37,14 +37,14 @@
       "Dynamic Programming": 11,
       "Bit Manipulation": 7,
       "Divide and Conquer": 6,
-      "HashMap and Set": 32,
+      "HashMap and Set": 33,
       "Trie": 1,
       "Trees": 4,
       "Enumeration": 4,
       "Ordered Set": 1,
       "Binary Tree": 4,
       "Queue and Stacks": 1,
-      "Binary Search": 29,
+      "Binary Search": 30,
       "Recursion": 4,
       "Sorting": 26,
       "Binary Indexed Tree": 2,
@@ -52,17 +52,17 @@
       "Simulation": 10,
       "Brainteaser": 1,
       "Linked Lists": 3,
-      "Arrays": 96,
+      "Arrays": 98,
       "Union-Find": 1
     }
   },
   "codechef": {
     "handle": "lucifer_609",
     "rating": 1171,
-    "peak": 1171,
+    "peak": 1185,
     "stars": 1,
-    "contests": 11,
-    "solved": 182,
+    "contests": 12,
+    "solved": 185,
     "ratingHistory": [
       1004,
       1106,
@@ -74,7 +74,8 @@
       1116,
       1147,
       1135,
-      1171
+      1171,
+      1185
     ]
   },
   "hackerrank": {

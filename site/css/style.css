@@ -616,6 +616,7 @@ kbd { display: inline-grid; place-items: center; min-width: 2.3em; height: 2.3em
 .hk-rows { display: grid; gap: 1em; margin: 1.2em 0; }
 .hk-rows dt { font-size: var(--fs-small); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
 .hk-rows dd { margin: .15em 0 0; }
+.repo-note { display: block; margin-top: .3em; font-size: .85em; font-weight: 400; letter-spacing: .04em; color: var(--ink-2); }
 .hk-links { display: flex; flex-wrap: wrap; gap: .8em 1.8em; font-size: var(--fs-small); font-weight: 700; }
 
 /* ── reveal states (only when JS + motion are on; boot.js adds .motion) ── */

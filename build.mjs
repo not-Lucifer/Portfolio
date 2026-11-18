@@ -261,6 +261,7 @@ function projectSlide(p, i) {
     fitvision: visualFit,
     "haunted-house": (x) => visualGame(x, art.hauntedScene),
     "kitchen-chaos": (x) => visualGame(x, art.kitchenScene),
+    "lucky-dice": (x) => visualGame(x, art.kitchenScene), // always has a screenshot; the scene is only a fallback
   }[p.id](p);
   const isGame = Boolean(p.play);
   const cta = isGame
@@ -272,7 +273,8 @@ function projectSlide(p, i) {
   ${visual.replace('class="tv"', `class="tv" id="${p.id}-play"`)}
   ${statement(p)}
   ${cta}
-  ${isGame ? `<p class="repo-link">${ext(p.repo, `SOURCE ON GITHUB <span aria-hidden="true">↗</span>`, "u-link")}</p>` : ""}
+  ${(isGame || p.live) && p.repo ? `<p class="repo-link">${ext(p.repo, `SOURCE ON GITHUB <span aria-hidden="true">↗</span>`, "u-link")}${p.liveNote ? `<span class="repo-note">${esc(p.liveNote)}</span>` : ""}</p>` : ""}
+  ${isGame && !p.repo && p.play.page ? `<p class="repo-link">${ext(p.play.page, `PAGE ON ITCH.IO <span aria-hidden="true">↗</span>`, "u-link")}</p>` : ""}
 </section>`;
 }
 
@@ -395,9 +397,10 @@ function hackathonSlide() {
       ["Built with", h.stack?.length ? h.stack.join(" · ") : null],
       ["Rank", rank],
       ["Achievement", h.achievement],
+      ["Result", h.result],
       ["Organizer", [h.organizer, h.format].filter(Boolean).join(" · ") || null],
     ].filter(([, v]) => v);
-    const links = [h.link && ext(h.link, `EVENT PAGE <span aria-hidden="true">↗</span>`, "u-link"), h.repo && ext(h.repo, `CODE ON GITHUB <span aria-hidden="true">↗</span>`, "u-link")].filter(Boolean).join("");
+    const links = [h.link && ext(h.link, `EVENT PAGE <span aria-hidden="true">↗</span>`, "u-link"), h.entry && ext(h.entry, `PLAY THE ENTRY <span aria-hidden="true">↗</span>`, "u-link"), h.repo && ext(h.repo, `CODE ON GITHUB <span aria-hidden="true">↗</span>`, "u-link")].filter(Boolean).join("");
     return `
   <dialog class="hk-dialog" id="hk-${i}" aria-labelledby="hk-${i}-t">
     <form method="dialog"><button class="hk-close" aria-label="Close">CLOSE ✕</button></form>

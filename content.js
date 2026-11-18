@@ -103,7 +103,10 @@ export default {
       badge: "AI-assisted",
       statement: ["SEARCHING NOTES IS SLOW.", "ASKING THEM IS FASTER."],
       repo: "https://github.com/not-Lucifer/RAG-based-Question-Answering-System",
-      cta: { label: "VIEW ON GITHUB", href: "https://github.com/not-Lucifer/RAG-based-Question-Answering-System" },
+      // Hosted on Render's free plan, which sleeps when idle, so the first visit can take about a minute.
+      live: "https://rag-based-question-answering-system-fvmr.onrender.com",
+      liveNote: "free server: the first load can take a minute",
+      cta: { label: "TRY THE LIVE DEMO", href: "https://rag-based-question-answering-system-fvmr.onrender.com" },
       // Replayed from a real session (docs/screenshots in the repo), trimmed for length.
       chat: {
         question: "difference between biodata a cv and resume",
@@ -187,6 +190,33 @@ export default {
         aspect: "16 / 9",
       },
       screenshot: "img/kitchen-chaos.webp",
+    },
+    {
+      id: "lucky-dice",
+      accent: "red",
+      title: ["LUCKY", "DICE"],
+      tagline: "roll for damage.",
+      summary:
+        "A top-down casino survival game made for the Official 2026 Unity Game Jam (theme: Lucky Number). Your weapon is a die: the number you roll multiplies your damage, and the Lucky Number changes every 60 seconds.",
+      category: "GAME JAM / 2D TOP-DOWN / UNITY 6",
+      stack: ["Unity 6", "C#", "2D", "WebGL"],
+      badge: "AI-assisted",
+      additions: "7-day jam entry. the idea, rules and playtesting are mine; the C# was written with Claude Code",
+      controls: [
+        { keys: ["W", "A", "S", "D"], does: "move" },
+        { keys: ["CLICK"], does: "shoot" },
+        { keys: ["E"], does: "roll" },
+        { keys: ["B"], does: "shop" },
+      ],
+      statement: ["ROLL THE DIE.", "PRAY FOR SEVENS."],
+      repo: null, // no public source repo yet
+      play: {
+        // itch.io's official HTML embed (Distribute → Embed game).
+        embed: "https://itch.io/embed-upload/20458636?color=151515",
+        page: "https://hyperiso.itch.io/lucky-dice",
+        aspect: "16 / 9",
+      },
+      screenshot: "img/lucky-dice.webp", // a screenshot from the itch.io page (intro cutscene)
     },
   ],
 
@@ -279,6 +309,21 @@ export default {
   // achievement; clicking it opens the rest. kind is "Hackathon" (uses `problem`) or "Game jam" (uses `theme`).
   // Any field set to null (or left out) is hidden, never faked.
   hackathons: [
+    {
+      name: "Unity Game Jam 2026",
+      kind: "Game jam",
+      organizer: "Unity",
+      date: "2026-11",
+      format: "Online · 7 days · 901 entries",
+      achievement: null, // community voting ends 21 Nov 2026, results 10 Dec 2026
+      theme: "Lucky Number: “a number that a person believes brings them good fortune”.",
+      project: "Lucky Dice, a top-down casino survival game. Your weapon is a die: the roll multiplies your damage, rolling the Lucky Number powers up your shots, and three in a row hits the jackpot. Built in Unity 6 with an AI coding assistant writing the C#; the idea, rules, balance and playtesting are mine.",
+      result: "Submitted. Voting runs until 21 Nov 2026, results on 10 Dec 2026.",
+      stack: ["Unity 6", "C#"],
+      link: "https://itch.io/jam/official-unity-game-jam-2026",
+      entry: "https://hyperiso.itch.io/lucky-dice",
+      repo: null,
+    },
     {
       name: "HackerRank Orchestrate",
       kind: "Hackathon",

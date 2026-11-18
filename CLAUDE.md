@@ -21,7 +21,8 @@ Read the README for how things work. This file is what to avoid breaking.
 - Never invent facts, numbers, ranks or claims. If data is missing, ask Aman or hide it. AI-assisted projects keep their "AI-assisted" badge. No cybersecurity, bug-bounty or subnet-calculator claims.
 - The site must not look templated or "vibe coded". Match the existing scrapbook style: paper cards, tape, hand font, Anton display type.
 - Certificates: PDF in `site/certificates/` with a plain filename (no email or student ID in it), then an entry in `certifications` (newest first). Certificate images are not shown on the main page, only on `/certificates/`.
-- Hackathons and game jams: tiles in the `#hackathons` slide on the main page (there is no separate page; `site/_redirects` sends `/hackathons` to `/#hackathons`). Each entry in `hackathons` has `kind: "Hackathon"` (uses `problem`) or `"Game jam"` (uses `theme`). The tile shows only the name and `achievement`; everything else is in the popup.
+- Hackathons and game jams: tiles in the `#hackathons` slide on the main page (there is no separate page; `site/_redirects` sends `/hackathons` to `/#hackathons`). Each entry in `hackathons` has `kind: "Hackathon"` (uses `problem`) or `"Game jam"` (uses `theme`). The tile shows only the name and `achievement`; everything else is in the popup. Optional popup fields: `result` (e.g. "voting until …" before a jam ends), `entry` (link to the submitted game), `link` (event page), `repo`.
+- Projects: `live` (deployed URL; the CTA points there and "Source on GitHub" is shown beside it) and `liveNote` (e.g. that the free Render server sleeps). A game with `repo: null` links to its `play.page` instead. Every project id needs an entry in the `visual` map in `projectSlide()` in `build.mjs`.
 - Resume is `site/aman-singh-resume.pdf`. Keep the filename.
 - Not on the site on purpose: Shadow Sync, The Hollow Crew.
 
